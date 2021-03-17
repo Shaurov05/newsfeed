@@ -13,7 +13,8 @@ urlpatterns = [
     path('change/password/', views.change_password, name='change_password'),
     url(r'logout/$', views.user_logout, name='logout'),
     
-    path("everything", views.everyNewsTitle, name='everything')
+    path("everything", views.everyNewsTitle, name='everything'),
+    path("set/settings", views.set_user_settings, name='user_settings')
 ]
 
 if settings.DEBUG:

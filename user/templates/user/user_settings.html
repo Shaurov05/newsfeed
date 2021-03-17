@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+  <div class="container">
+    <div class="jumbotron">
+      <form id="project_form" method="post" action="" enctype="multipart/form-data">
+
+      {% csrf_token %}
+      <h1>Setup your choices</h1>
+
+      <ul>
+          <li>Country of news (Multiple)</li>
+          <li>The user will only see news headlines from these countries.</li>
+      </ul>
+
+      <ul>
+          <li>Source of news (Multiple)</li>
+          <li>The user will only see news from these sources. Ex. BBC, CNN etc.</li>
+      </ul>
+
+      <ul>
+          <li>Keywords (Multiple)</li>
+          <li>The user will get notified when news containing these keywords appears in their
+                newsfeed.</li>
+      </ul>
+    <br>
+
+    <h4>Choose your Country of news (Multiple)</h4>
+    <div class="row">
+      <div class="col-lg-12" style="height:220px;">
+        <select name="countryChoices" class="selectpicker" id="myPicker2"
+              multiple title="Choose one of the following..."
+              data-live-search="true"
+              data-selected-text-format="count > 3"
+              data-size="3"
+              data-style="btn-info">
+        {% for country in countries %}
+            <option id="{{country.id}}" value={{country.id}}> {{country}}</option>
+        {% endfor %}
+      </select>
+      </div>
+
+    </div>
+
+    <h4>Choose your Source of news (Multiple)</h4>
+    <div class="row">
+      <div class="col-lg-12" style="height:220px;">
+        <select name="sourceChoices" class="selectpicker" id="myPicker2"
+              multiple title="Choose one of the following..."
+              data-live-search="true"
+              data-selected-text-format="count > 3"
+              data-size="3"
+              data-style="btn-info">
+        {% for source in source_list %}
+            <option id="{{source.id}}" value={{source.id}}> {{source.source_name}}</option>
+        {% endfor %}
+      </select>
+      </div>
+
+    </div>
+
+    <h4>Enter keywords (Enter keywords in comma separated manner i.e. corona, vaccine)</h4>
+    <div class="row">
+      <div class="col-lg-12" style="height:40px;">
+        <div class="form-group">
+            <input type="text" name="keywords" class="form-control" id="keywords" aria-describedby="emailHelp" placeholder="Enter keywords">
+        </div>
+      </div>
+
+    </div>
+
+      <br><br>
+      <input id="submit" type="submit" name="submit" value="Submit Choices" />
+      <br><br><br><br>
+    </form>
+
+
+     </div>
+</div>
+
+{% endblock %}
+
+
+
+
