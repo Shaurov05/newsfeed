@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+  <div class="container">
+    <div class="jumbotron">
+
+    {% for source in source_list %}
+        <div class="card mb-4">
+          <div class="card-body">
+            <ul>
+                <li>{{ source.source_id }}</li>
+                <li>{{ source.source_name }}</li>
+            </ul>
+            </div>
+        </div>
+    {% endfor %}
+
+     </div>
+</div>
+
+{% endblock %}

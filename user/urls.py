@@ -8,12 +8,13 @@ from django.conf.urls.static import static
 app_name = 'user'
 
 urlpatterns = [
-    path('/register',views.register, name='register'),
-    url(r'/user_login/$', views.user_login, name='login'),
+    path('register',views.register, name='register'),
+    url(r'user_login/$', views.user_login, name='login'),
     path('change/password/', views.change_password, name='change_password'),
-    url(r'/logout/$', views.user_logout, name='logout'),
+    url(r'logout/$', views.user_logout, name='logout'),
     
-    path("everything", views.everyNewsTitle, name='everything')
+    path("everything", views.everyNewsTitle, name='everything'),
+    path("set/settings", views.set_user_settings, name='user_settings')
 ]
 
 if settings.DEBUG:
