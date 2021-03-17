@@ -120,7 +120,6 @@ def set_user_settings(request):
         countries = Country.objects.all()
         source_list = Source.objects.all()
         # print(source_list)
-
         return render(request, 'user/user_settings.html', {'source_list': source_list,
                                                            'countries':countries})
     else:
@@ -134,21 +133,27 @@ def set_user_settings(request):
         print(keywords)
 
         for country in countryChoices:
-            CountryChoice.objects.create(country_id=country,
+            id, country_name = country.split(",")
+            CountryChoice.objects.create(country_id=id,
+                                         country_name=country_name,
                                          user=userProfile)
         for source in sourceChoices:
-            SourceChoice.objects.create(source_id=source,
-                                         user=userProfile)
+            source_id, source_name = source.split(",")
+            SourceChoice.objects.create(source_id=source_id,
+                                        source_name=source_name,
+                                        user=userProfile)
         userProfile.keywords = keywords
+        userProfile.chosen = True
         userProfile.save()
-        return render(request, 'index.html', )
+        return redirect(reverse('index'))
 
 
-def get_sources():
+def set_sources():
     sources = newsapi.get_sources()["sources"]
     print(sources)
     source_list = []
     source = {}
+
     for source in sources:
         Source.objects.create(
             source_id=source["id"],
@@ -156,7 +161,7 @@ def get_sources():
         )
 
 
-def get_countries():
+def set_countries():
     countries = ['ae', 'ar', 'at', 'au', 'be', 'bg', 'br',
                  'ca', 'ch', 'cn', 'co', 'cu', 'cz', 'de',
                  'eg', 'fr', 'gb', 'gr', 'hk', 'hu', 'id',
@@ -166,6 +171,84 @@ def get_countries():
                  'si', 'sk', 'th', 'tr', 'tw', 'ua', 'us', 've', 'za']
     for country in countries:
         Country.objects.create(name=country)
+
+
+def user_profile(request):
+    user = UserProfile.objects.get(user=request.user)
+    try:
+        user_countries = CountryChoice.objects.filter(user_id=user.id)
+    except Exception as ex:
+        print(ex)
+        user_countries = ""
+
+    try:
+        user_sources = SourceChoice.objects.filter(user_id=user.id)
+    except Exception as ex:
+        print(ex)
+        user_sources = ""
+
+    try:
+        keywords = user.keywords.split(',')
+    except :
+        keywords = ""
+
+    print(user_sources)
+    print(user_countries)
+    return render(request, 'user/user_profile.html', context={
+            'current_user': user,
+            'user_countries': user_countries,
+            'user_sources':user_sources,
+            'keywords':keywords
+        })
+
+
+def get_filtered_response(request):
+
+    userProfile = UserProfile.objects.get(user=request.user)
+    print(userProfile)
+    sources = ""
+    countries = ""
+
+    try:
+        countryChoices = CountryChoice.objects.filter(user=userProfile)
+        countries = countryChoices[0].country_name
+        for country in countryChoices[1:]:
+            countries = countries + "," + str(country.country_name)
+    except Exception as ex:
+        print(ex)
+        countryChoices = ""
+
+    try:
+        sourceChoices = SourceChoice.objects.filter(user=userProfile)
+        sources = sourceChoices[0].source_name
+        for source in sourceChoices[1:]:
+            sources = sources + "," + str(source.source_name)
+    except Exception as ex:
+        print(ex)
+        sourceChoices = ""
+
+    print(countries)
+    print( sources)
+    # print(userProfile.keywords.split(","))
+
+    keywords = ""
+    try:
+        keywords = userProfile.keywords.split(",")[0]
+        for keyword in userProfile.keywords.split(",")[1:]:
+            keywords = keywords + "," + keyword.lstrip()
+        print(keywords)
+    except:
+        keywords = ""
+
+    newsapi = NewsApiClient(api_key='76c50369dfc54cf393ba20de4543a681')
+    filtered_response = newsapi.get_top_headlines()
+
+    print(countryChoices)
+    print(sourceChoices)
+    print(keywords)
+
+
+    return redirect(reverse('index'))
 
 
 

@@ -36,7 +36,7 @@
               data-size="3"
               data-style="btn-info">
         {% for country in countries %}
-            <option id="{{country.id}}" value={{country.id}}> {{country}}</option>
+            <option id="{{country.id}}" value={{country.id}},{{country.name}}> {{country}}</option>
         {% endfor %}
       </select>
       </div>
@@ -53,7 +53,7 @@
               data-size="3"
               data-style="btn-info">
         {% for source in source_list %}
-            <option id="{{source.id}}" value={{source.id}}> {{source.source_name}}</option>
+            <option id="{{source.source_id}}" value={{source.id}},{{source.source_id}}> {{source.source_name}}</option>
         {% endfor %}
       </select>
       </div>

@@ -111,7 +111,10 @@
     h1, h2, h3, h4, h5, h6 {
       font-family: Merriweather, Georgia, "times new roman", serif;
     }
-  }
+
+
+
+
 </style>
 
 <body>
@@ -160,9 +163,27 @@
                 </li>
 
               {% else %}
-                <li class="nav-item ">
-                  <a class="nav-link" href='{% url "user:user_settings" %}'>Setup Settings</a>
-                </li>
+
+                  {% if current_user.chosen %}
+                  <li class="nav-item ">
+                    <a class="nav-link "
+                       style="cursor: not-allowed;
+                              pointer-events: all !important;"
+                       href="javascript:void(0)"
+                       title="Can't set filter more than once"
+                       style=""
+                       >Setup Settings</a>
+                  </li>
+
+                  <li class="nav-item ">
+                   <a class="nav-link" href='{% url "user:filtered_newsfeed" %}'>Filtered Newsfeed</a>
+                  </li>
+
+                  {% else %}
+                    <li class="nav-item ">
+                    <a class="nav-link" href='{% url "user:user_settings" %}'>Setup Settings</a>
+                    </li>
+                  {% endif %}
 
                 <li class="nav-item dropdown dropdown2">
                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -170,7 +191,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-content" aria-labelledby="navbarDropdownMenuLink">
 
-                      <a class="dropdown-item" href="#">Profile</a>
+                      <a class="dropdown-item" href="{% url 'user:profile' %}">Profile</a>
                       <a class="dropdown-item" href="{% url 'user:change_password' %}">Change password</a>
                       <a class="dropdown-item" href="{% url 'user:logout' %}">Logout</a>
                     </div>
@@ -233,4 +254,7 @@
 
 </body>
 
+
 </html>
+
+
