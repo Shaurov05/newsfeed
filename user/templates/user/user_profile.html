@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<div class="container jumbotron">
+<div class="card mb-4">
+  <div class="card-body">
+    <h1>Welcome to the User Detail Page</h1><br><br>
+
+        <h4>Username: {{current_user.user.username}}</h4>
+        <br><br>
+
+        {% if user_countries %}
+            <h5>Chosen countries</h5>
+            <ul>
+                {% for data in user_countries %}
+                <li>{{ data.country }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h5>No countries chosen! </h5>
+        {% endif %}
+
+        {% if user_sources %}
+            <h5>Chosen sources:</h5>
+            <ul>
+                {% for data in user_sources %}
+                <li>{{ data.source }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h5>No sources chosen! </h5>
+        {% endif %}
+
+        {% if keywords %}
+            <h5>Chosen keywords:</h5>
+            <ul>
+                {% for keyword in keywords %}
+                <li>{{ keyword }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h5>No keywords chosen! </h5>
+        {% endif %}
+    </div>
+  </div>
+</div>
+
+<br><br>
+
+{% endblock %}

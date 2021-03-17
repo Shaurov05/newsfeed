@@ -29,7 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("user/", include("user.urls", namespace="users")),
 
-    path('', IndexPage.as_view(), name='index'),
+    path('', index, name='index'),
     path('thanks/', LogoutPage.as_view(), name='thanks'),
 
     re_path(r"^.*$", ErrorTemplateView.as_view(), name='entry-point'),

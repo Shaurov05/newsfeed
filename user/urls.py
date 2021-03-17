@@ -13,8 +13,11 @@ urlpatterns = [
     path('change/password/', views.change_password, name='change_password'),
     url(r'logout/$', views.user_logout, name='logout'),
     
+    path('profile/', views.user_profile, name='profile'),
     path("everything", views.everyNewsTitle, name='everything'),
-    path("set/settings", views.set_user_settings, name='user_settings')
+    path("set/settings", views.set_user_settings, name='user_settings'),
+    path("filtered/newsfeed", views.get_filtered_response, name='filtered_newsfeed'),
+
 ]
 
 if settings.DEBUG:
