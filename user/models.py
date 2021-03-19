@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+import pytz
+from django.db import models
 
 # Create your models here.
 
@@ -45,3 +47,24 @@ class SourceChoice(models.Model):
 
     def __str__(self):
         return self.source.source_name
+
+
+class NewsFeed(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="user_feeds")
+
+    headline = models.CharField(max_length=255)
+    thumbnail = models.URLField()
+    news_url = models.URLField()
+    source_of_news = models.CharField(max_length=60)
+    country_of_news = models.CharField(max_length=60)
+
+    description = models.TextField()
+    content = models.TextField()
+    published_at = models.CharField(max_length=60)
+
+    def __str__(self):
+        return self.headline
+
+
+
+

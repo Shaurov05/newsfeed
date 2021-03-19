@@ -42,9 +42,15 @@ INSTALLED_APPS = [
 
     'user',
 
-    # forms
+    # rest framework
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+
+    # forms and extra packages
     'crispy_forms',
     'bootstrap4',
+    'background_task',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +83,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'newsfeed.wsgi.application'
 
+## email sending app
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "expressyourthought05@gmail.com"
+EMAIL_HOST_PASSWORD = "thisisbusinessemail05"
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 6
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

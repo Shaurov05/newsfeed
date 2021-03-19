@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load customFilters %}
+
+{% block body_block %}
+<div class="row">
+    {% if newsFeeds %}
+        {% for news in newsFeeds %}
+            <div class="col-md-4 col-lg-4 col-sm-4">
+                <div class="card mb-4 ml-2 mr-2">
+          <div class="card-body">
+              <div class="container " style="background-color:#e0dada; width: 50rem; color:#8c000c">
+            <div card-body>
+              {% if user_form_errors  %}
+              <h4>Validation Error</h4>
+              <h6>Check these fileds:</h6>
+              {% endif %}
+
+              {% if user_form_errors %}
+                <ul>
+                  {% for error in user_form_errors %}
+                  <li>
+                    {{ error }}
+                  </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+
+            </div>
+          </div>
+                <img class="img-fluid img-thumbnail"
+                     style="width:230px;
+                            margin: auto;
+                            display: block;
+                            height: 230px;"
+                     src="{{news.thumbnail}}" alt=""> <br>
+                <h5 class="card-title">Title: <a href={{news.news_url}} class="">
+                    {{ news.headline }}
+                </a></h5>
+                <h5 class="card-title">Source of news: {{ news.source_of_news }}</h5>
+                <h5 class="card-title">Coutry of news: {{ news.country_of_news }}</h5>
+                <h5 class="card-title">Published at: {{ news.published_at| convert_str_date  }}</h5>
+
+          </div>
+         </div>
+
+            </div>
+        {% endfor %}
+    {% else %}
+</div>
+    <div class="" >
+        <br><br><br><br><br>
+        <h2 class="text-center ml-4 mr-4" style="" >No data filtered till now!</h2>
+        <br><br><br><br><br>
+    </div>
+    {% endif %}
+
+
+<div class="mt-2 ml-2 mr-2" style="border: 2px solid red;
+  width:100%;
+  display: flex;
+  justify-content: center;
+    ">
+
+    {% if newsFeeds.has_next and newsFeeds.has_previous %}
+        <a class=" ml-2 mr-2" style="font-size:30px" href="?page={{ newsFeeds.previous_page_number }}">prev | </a>
+
+        <span class="current">
+            <span class=" ml-2 mr-2" style="font-size:30px">Page No: {{ newsFeeds.number }}</span>
+        </span>
+
+        <a style="font-size:30px" href="?page={{ newsFeeds.next_page_number }}">| next</a>
+
+    {% elif newsFeeds.has_next %}
+        <span class="current">
+            <span class=" ml-2 mr-2" style="font-size:30px">Page No: {{ newsFeeds.number }}</span>
+        </span>
+        <a style="font-size:30px" href="?page={{ newsFeeds.next_page_number }}">| next</a>
+
+    {% elif newsFeeds.has_previous %}
+        <a class=" ml-2 mr-2" style="font-size:30px" href="?page={{ newsFeeds.previous_page_number }}">prev | </a>
+        <span class="current">
+            <span style="font-size:30px">Page No: {{ newsFeeds.number }}</span>
+        </span>
+    {% elif newsFeeds %}
+        <span class="current">
+            <span style="font-size:30px">Page No: 1 of 1</span>
+        </span>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+
+
