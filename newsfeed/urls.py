@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path, include, re_path
 from .views import *
+from user import api
 
 
 urlpatterns = [
@@ -32,6 +33,11 @@ urlpatterns = [
     path('', index, name='index'),
     path('thanks/', LogoutPage.as_view(), name='thanks'),
 
-    re_path(r"^.*$", ErrorTemplateView.as_view(), name='entry-point'),
+    # rest framework endpoints
+    # path('api/', include('rest_framework.urls')),
+    # path('rest/api/', include(('user.api.urls'), namespace="user_api")),
+    path('api/auth/', include('rest_auth.urls')),
+
+    # re_path(r"^.*$", ErrorTemplateView.as_view(), name='entry-point'),
 
 ]

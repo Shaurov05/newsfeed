@@ -7,5 +7,7 @@ admin.site.register(Source)
 admin.site.register(Country)
 admin.site.register(CountryChoice)
 admin.site.register(SourceChoice)
+admin.site.register(NewsFeed)
+
 
 
