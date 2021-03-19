@@ -1,4 +1,5 @@
-from rest_framework import  permissions
+from rest_framework import permissions
+
 
 class IsOwnProfileOrReadOnly(permissions.BasePermission):
 
@@ -10,10 +11,9 @@ class IsOwnProfileOrReadOnly(permissions.BasePermission):
 
 
 
-class IsOwnerOrReadOnly(permissions.BasePermission):
-
+class IsGetRequest(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-
-        return obj.user_profile == request.user.profile
+        else:
+            return False
