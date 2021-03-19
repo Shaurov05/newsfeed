@@ -34,10 +34,8 @@ urlpatterns = [
     path('thanks/', LogoutPage.as_view(), name='thanks'),
 
     # rest framework endpoints
-    # path('api/', include('rest_framework.urls')),
-    # path('rest/api/', include(('user.api.urls'), namespace="user_api")),
     path('api/auth/', include('rest_auth.urls')),
 
-    # re_path(r"^.*$", ErrorTemplateView.as_view(), name='entry-point'),
+    re_path(r"^.*$", ErrorTemplateView.as_view(), name='entry-point'),
 
 ]

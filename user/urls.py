@@ -13,7 +13,9 @@ from user.api.views import *
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r"newsfeed", NewsFeedViewSet)
+router.register(r"newsfeed", NewsFeedViewSet, basename='newsfeed')
+router.register(r"userProfile", UserProfileViewSet, basename='userProfile')
+router.register(r"user", UserViewSet, basename='user')
 
 urlpatterns = [
     path('register',views.register, name='register'),
