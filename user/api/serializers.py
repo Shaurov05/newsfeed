@@ -21,9 +21,17 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    username=serializers.SerializerMethodField()
+    email=serializers.SerializerMethodField()
     class Meta:
         model = UserProfile
         fields = '__all__'
+
+    def get_username(self, obj):
+        return obj.user.username
+
+    def get_email(self, obj):
+        return obj.user.email
 
 
 class NewsFeedSerializer(serializers.ModelSerializer):

@@ -325,7 +325,7 @@ from django.core.mail import send_mail
 def sendEmail(username, keyword, user_email):
     subject = "News feed"
     message = "Hi " + str(username) + "\n\n" \
-                + "We have found a keyword "+ str(keyword) +" match in newsfeed. Check on filtered newsfeed" \
+                + "We have found a keyword ("+ str(keyword) +") match in newsfeed. Check on filtered newsfeed" \
                   "after logging in NewsFeed." + "\n\n" \
                 + "Regards" + "\n" \
                 + "NewsFeed Team"
