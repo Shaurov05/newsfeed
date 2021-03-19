@@ -11,7 +11,7 @@ A background task collects news using the API and stores only the lastest news i
   <li> python manage.py makemigations</li>
   <li> python manage.py migrate</li>
   <li> python manage.py runserver </li>
-  <li> python manage.py process_tasks </li>
+  <li> python manage.py process_tasks (To run a background task after every 60 seconds which gets news from NewsFeed API and updates the database with latest news) </li>
  </ol>
  
 <h3> API endpoints </h3> 
