@@ -20,12 +20,14 @@ from django.views.static import serve
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path, include, re_path
+
+from user.tasks import feed_database
 from .views import *
 from user import api
 
 
 urlpatterns = [
-    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 
     path('admin/', admin.site.urls),
     path("user/", include("user.urls", namespace="users")),
@@ -39,3 +41,5 @@ urlpatterns = [
     re_path(r"^.*$", ErrorTemplateView.as_view(), name='entry-point'),
 
 ]
+
+feed_database(repeat=10, repeat_until=None)

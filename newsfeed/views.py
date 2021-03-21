@@ -4,6 +4,7 @@ from django.views.generic import (TemplateView, ListView, View,
 from django.shortcuts import render
 from user.models import UserProfile
 
+
 class IndexPage(TemplateView):
     template_name = 'index.html'
 
@@ -16,6 +17,7 @@ def index(request):
     return render(request, 'index.html', context={
         'current_user': user
     })
+
 
 class ErrorTemplateView(TemplateView):
 

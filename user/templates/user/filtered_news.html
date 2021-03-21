@@ -38,7 +38,8 @@
                 </a></h5>
                 <h5 class="card-title">Source of news: {{ news.source_of_news }}</h5>
                 <h5 class="card-title">Coutry of news: {{ news.country_of_news }}</h5>
-                <h5 class="card-title">Published at: {{ news.published_at| convert_str_date  }}</h5>
+                {% comment %}<h5 class="card-title">Published at: {{ news.published_at| convert_str_date  }}</h5>{% endcomment %}
+                <h5 class="card-title">Published at: {{ news.published_at }}</h5>
 
           </div>
          </div>
